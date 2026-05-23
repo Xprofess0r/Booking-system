@@ -9,6 +9,18 @@ class BookingService {
         this.bookingRepository = new BookingRepository();
     }
 
+    async getAll() {
+        try {
+            const bookings = await this.bookingRepository.getAll();
+            return bookings;
+        } catch (error) {
+            if (error.name == 'RepositoryError') {
+                throw error;
+            }
+            throw new ServiceError();
+        }
+    }
+
     async createBooking(data) {
         try {
             // Input validation
