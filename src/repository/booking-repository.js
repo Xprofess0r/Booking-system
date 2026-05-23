@@ -20,6 +20,19 @@ class BookingRepository {
         }
     }
 
+    async getAll() {
+        try {
+            const bookings = await Booking.findAll();
+            return bookings;
+        } catch (error) {
+            throw new AppError(
+                'RepositoryError',
+                'Cannot fetch Bookings',
+                'There was some issue fetching the bookings, please try again later',
+                StatusCodes.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     async update(bookingId, data) {
         try {
             const booking = await Booking.findByPk(bookingId);
